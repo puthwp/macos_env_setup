@@ -5,7 +5,7 @@ echo "Setting up ...."
 CUR_PATH=$(pwd)
 RES_PATH=$(pwd)/resources/
 # check_cmd() {
-# 	-x "$(which $1)" 
+# 	-x "$(which $1)"
 # 	return $?
 # }
 
@@ -15,7 +15,7 @@ figlet_head() {
 
 divider() {
 	# Print Divider
-	printf %"$COLUMNS"s | tr " " "=";
+	printf %"$COLUMNS"s | tr " " "="
 }
 
 install_ssh_setup() {
@@ -37,7 +37,7 @@ setup_git() {
 	echo "Git config name "
 	[[ ! $(git config --get user.name) ]] || return
 	# set git global variables
-	divider 
+	divider
 
 	figlet_head "Name on Git"
 	read -p "What's your name? email" NAME EMAIL
@@ -52,7 +52,7 @@ backup_zsh() {
 	# Set up oh my zsh and plugins
 	# BK_DIR="${HOME}/.bak/$(date +%Y%m%d_%H%M%S)"
 
-	# if [ -d "${BK_DIR}" ]; then 
+	# if [ -d "${BK_DIR}" ]; then
 	# 	mkdir -p "$BK_DIR"
 	# fi
 
@@ -71,8 +71,7 @@ backup_zsh() {
 	# echo "Backup DONE"
 }
 
-
-install_zsh () {
+install_zsh() {
 
 	divider
 	echo "install oh my zsh"
@@ -82,7 +81,7 @@ install_zsh () {
 	# install ohmyzsh
 	curl -fsSL -o "installer.sh" "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 	sh installer.sh --unattended
-	
+
 	git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestion
 
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
@@ -93,7 +92,7 @@ install_zsh () {
 
 	ADD_LIST='zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete'
 
-	sed -e "s/plugins=(\(.*\))/plugins=(\1 ${ADD_LIST})/g" $HOME/.zshrc >> $HOME/.zshrc
+	sed -e "s/plugins=(\(.*\))/plugins=(\1 ${ADD_LIST})/g" $HOME/.zshrc >>$HOME/.zshrc
 
 	divider
 
@@ -109,8 +108,8 @@ install_homebrew() {
 	# install homebrew
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-	echo "export PATH=/opt/homebrew/bin:$PATH" >> $HOME/.zprofile
-	echo "eval "$(/opt/homebrew/bin/brew shellenv)"" >> $HOME/.zprofile
+	echo "export PATH=/opt/homebrew/bin:$PATH" >>$HOME/.zprofile
+	echo "eval "$(/opt/homebrew/bin/brew shellenv)"" >>$HOME/.zprofile
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 
 	brew doctor
@@ -118,25 +117,26 @@ install_homebrew() {
 	[[ $? -eq 0 ]] || brew install git zsh figlet &
 	# zsh
 	divider
-  figlet_head "Lets Start!"
+	figlet_head "Lets Start!"
 	echo "finally I can say someting..."
 	divider
 	# read "Ready to go..any keys"
 
 }
 
-
 install_xcode() {
 	divider
 	echo "It's time for Xcode"
 	# Make Xcode installation
+	mas lucky xcode
 
 	sudo xcode-select --install
 	softwareupdate --install-rosetta
 
-	divider 
+	mkdir -p ~/Library/Developer/Xcode/UserData/FontAndColorThemes/
+	cp resources/xcode_themes/* ~/Library/Developer/Xcode/UserData/FontAndColorThemes/
+	divider
 }
-
 
 setup_rbenv() {
 
@@ -152,7 +152,7 @@ setup_rbenv() {
 	rbenv global 3.2.2
 	rbenv rehash
 	local env='eval "$(${HOME}/.rbenv/bin/rbenv init - zsh)"'
-	echo "${env}" >> $HOME/.zprofile
+	echo "${env}" >>$HOME/.zprofile
 	${env}
 
 	divider
@@ -169,7 +169,7 @@ setup_nvm() {
 	NVM='export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
 
-	echo "${NVM}" >> $HOME/.zprofile
+	echo "${NVM}" >>$HOME/.zprofile
 
 	${NVM}
 
@@ -207,7 +207,7 @@ install_python3() {
 	divider
 }
 
-	# install npm
+# install npm
 setup_docker() {
 	divider
 	echo "Finally last The Docker"
@@ -236,13 +236,10 @@ done_print() {
 	read
 	echo "rebooting..."
 	sudo shutdown -r now
-	read "see ya..."; exit 0
+	read "see ya..."
+	exit 0
 
 }
-
-
-
-
 
 divider
 install_ssh_setup
@@ -253,15 +250,15 @@ setup_git
 divider
 backup_zsh
 divider
-install_zsh 
+install_zsh
 divider
 setup_rbenv
+divider
+bundler_brew
 divider
 install_xcode
 divider
 setup_nvm
-divider
-bundler_brew
 divider
 install_python3
 divider
