@@ -3,7 +3,7 @@
 # Set up Tools and Environments for Mobile Developer
 echo "Setting up ...."
 CUR_PATH=$(pwd)
-RES_PATH=$(pwd)/resources/
+RES_PATH=$(pwd)/resources
 # check_cmd() {
 # 	-x "$(which $1)"
 # 	return $?
@@ -223,9 +223,13 @@ paperwm() {
 	# PaperWM liked tiling windows
 	mkdir -p $HOME/.hammerspoon/Spoons/
 
-	git clone https://github.com/mogenson/PaperWM.spoon ~/.hammerspoon/Spoons/PaperWM.spoon
+	rm -rf $HOME/.hammerspoon/Spoons/PaperWM.spoon
 
-	cp $RES_PATH/resources/init.lua $HOME/.hammerspoon/init.lua
+	git clone -q https://github.com/mogenson/PaperWM.spoon ~/.hammerspoon/Spoons/PaperWM.spoon
+
+	cp $RES_PATH/init.lua $HOME/.hammerspoon/init.lua
+
+	open -a /Applications/Hammerspoon.app
 }
  
 done_print() {
@@ -241,29 +245,31 @@ done_print() {
 
 }
 
-divider
-install_ssh_setup
-divider
-install_homebrew
-divider
-setup_git
-divider
-backup_zsh
-divider
-install_zsh
-divider
-setup_rbenv
-divider
-bundler_brew
-divider
-install_xcode
-divider
-setup_nvm
-divider
-install_python3
-divider
-paperwm
-divider
-setup_docker
-divider
-done_print
+full_install() {
+	divider
+	install_ssh_setup
+	divider
+	install_homebrew
+	divider
+	setup_git
+	divider
+	backup_zsh
+	divider
+	install_zsh
+	divider
+	setup_rbenv
+	divider
+	bundler_brew
+	divider
+	install_xcode
+	divider
+	setup_nvm
+	divider
+	install_python3
+	divider
+	paperwm
+	divider
+	setup_docker
+	divider
+	done_print
+}
