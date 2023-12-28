@@ -4,13 +4,16 @@
 echo "Setting up ...."
 CUR_PATH=$(pwd)
 RES_PATH=$(pwd)/resources
-# check_cmd() {
-# 	-x "$(which $1)"
-# 	return $?
-# }
+
+
+
+check_cmd() {
+	-x "$(which $1)"
+	return $?
+}
 
 figlet_head() {
-	[ -f "/opt/brew/bin/figlet" ] && figlet -c "${1}" || echo "${1}"
+	[[ -f "/opt/brew/bin/figlet" ]] && figlet -c "${1}" || echo "${1}"
 }
 
 divider() {
@@ -68,7 +71,7 @@ backup_zsh() {
 	# fi
 
 	# divider
-	# echo "Backup DONE"
+	echo "Backup DONE"
 }
 
 install_zsh() {
@@ -231,7 +234,7 @@ paperwm() {
 
 	open -a /Applications/Hammerspoon.app
 }
- 
+
 done_print() {
 	#Done Process
 
@@ -273,3 +276,5 @@ full_install() {
 	divider
 	done_print
 }
+
+full_install
