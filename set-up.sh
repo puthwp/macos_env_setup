@@ -43,7 +43,10 @@ setup_git() {
 	divider
 
 	figlet_head "Name on Git"
-	read -p "What's your name? email" NAME EMAIL
+	echo "What's your Name?"
+	read -p "Name:" NAME 
+	echo "What about Email?"
+	read -p "Email:" EMAIL
 
 	git config --global user.name "${NAME}"
 	git config --global user.email "${EMAIL}"
