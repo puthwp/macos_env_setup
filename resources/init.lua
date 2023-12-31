@@ -60,7 +60,6 @@ hs.hotkey.bind({"cmd", "shift",},"return", function()
         hs.application.launchOrFocus(terminal)
     end
 end)
-
 function notify(text)
     hs.notify.show(text)
 end
